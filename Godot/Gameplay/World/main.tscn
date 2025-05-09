@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://brrm44dymh5lg"]
+[gd_scene load_steps=3 format=3 uid="uid://brrm44dymh5lg"]
 
 [ext_resource type="PackedScene" uid="uid://btw2crosmbyhc" path="res://Gameplay/Player/player.tscn" id="1_mnrq8"]
-[ext_resource type="Texture2D" uid="uid://c6h1kx3h23svd" path="res://Graphics/Particles/test_particle.png" id="2_gap3c"]
-[ext_resource type="Texture2D" uid="uid://codvwwll6ogvs" path="res://Graphics/Particles/test_particle_2.png" id="3_hdx3s"]
+[ext_resource type="PackedScene" uid="uid://t4rji6isqv5y" path="res://Gameplay/Particles/particle.tscn" id="2_qepn6"]
 
 [node name="main" type="Node2D"]
 
@@ -10,74 +9,65 @@
 position = Vector2(400, 183)
 thrust = 500.0
 
-[node name="TestParticle" type="Sprite2D" parent="."]
-position = Vector2(79, 232)
-texture = ExtResource("2_gap3c")
+[node name="Particle" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(395, 109)
 
-[node name="TestParticle2" type="Sprite2D" parent="TestParticle"]
-position = Vector2(359, 73)
-texture = ExtResource("2_gap3c")
+[node name="Particle2" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(463, 137)
 
-[node name="TestParticle4" type="Sprite2D" parent="TestParticle/TestParticle2"]
-position = Vector2(103, -182)
-texture = ExtResource("2_gap3c")
+[node name="Particle3" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(289, 124)
 
-[node name="TestParticle" type="Sprite2D" parent="TestParticle/TestParticle2/TestParticle4"]
-position = Vector2(-161, -23)
-texture = ExtResource("2_gap3c")
+[node name="Particle4" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(302, 236)
 
-[node name="TestParticle2" type="Sprite2D" parent="TestParticle/TestParticle2/TestParticle4"]
-position = Vector2(198, 50)
-texture = ExtResource("2_gap3c")
+[node name="Particle5" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(461, 229)
 
-[node name="TestParticle3" type="Sprite2D" parent="TestParticle/TestParticle2/TestParticle4"]
-position = Vector2(-105, -282)
-texture = ExtResource("2_gap3c")
+[node name="Particle6" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(165, 209)
 
-[node name="TestParticle4" type="Sprite2D" parent="TestParticle/TestParticle2/TestParticle4"]
-position = Vector2(301, -132)
-texture = ExtResource("2_gap3c")
+[node name="Particle7" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(341, 88)
 
-[node name="TestParticle" type="Sprite2D" parent="TestParticle/TestParticle2/TestParticle4/TestParticle4"]
-position = Vector2(-687, 432)
-texture = ExtResource("2_gap3c")
+[node name="Particle8" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(628, 291)
 
-[node name="TestParticle2" type="Sprite2D" parent="TestParticle/TestParticle2/TestParticle4/TestParticle4"]
-position = Vector2(-328, 505)
-texture = ExtResource("2_gap3c")
+[node name="Particle9" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(696, 319)
 
-[node name="TestParticle3" type="Sprite2D" parent="TestParticle/TestParticle2/TestParticle4/TestParticle4"]
-position = Vector2(-631, 173)
-texture = ExtResource("2_gap3c")
+[node name="Particle10" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(522, 306)
 
-[node name="TestParticle4" type="Sprite2D" parent="TestParticle/TestParticle2/TestParticle4/TestParticle4"]
-position = Vector2(-225, 323)
-texture = ExtResource("2_gap3c")
+[node name="Particle11" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(535, 418)
 
-[node name="TestParticle5" type="Sprite2D" parent="TestParticle/TestParticle2/TestParticle4/TestParticle4"]
-position = Vector2(-345, 114)
-texture = ExtResource("3_hdx3s")
+[node name="Particle12" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(694, 411)
 
-[node name="TestParticle5" type="Sprite2D" parent="TestParticle/TestParticle2/TestParticle4/TestParticle4/TestParticle5"]
-position = Vector2(137, 142)
-texture = ExtResource("3_hdx3s")
+[node name="Particle13" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(398, 391)
 
-[node name="TestParticle5" type="Sprite2D" parent="TestParticle/TestParticle2/TestParticle4/TestParticle4/TestParticle5/TestParticle5"]
-position = Vector2(-440, -134)
-texture = ExtResource("3_hdx3s")
+[node name="Particle14" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(574, 270)
 
-[node name="TestParticle5" type="Sprite2D" parent="TestParticle/TestParticle2/TestParticle4/TestParticle4/TestParticle5/TestParticle5/TestParticle5"]
-position = Vector2(145, 173)
-texture = ExtResource("3_hdx3s")
+[node name="Particle15" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(144, -32)
 
-[node name="TestParticle5" type="Sprite2D" parent="TestParticle/TestParticle2/TestParticle4/TestParticle4/TestParticle5/TestParticle5/TestParticle5/TestParticle5"]
-position = Vector2(122, -365)
-texture = ExtResource("3_hdx3s")
+[node name="Particle16" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(212, -4)
 
-[node name="TestParticle5" type="Sprite2D" parent="TestParticle/TestParticle2/TestParticle4/TestParticle4/TestParticle5/TestParticle5/TestParticle5/TestParticle5/TestParticle5"]
-position = Vector2(424, 384)
-texture = ExtResource("3_hdx3s")
+[node name="Particle17" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(38, -17)
 
-[node name="TestParticle3" type="Sprite2D" parent="TestParticle"]
-position = Vector2(56, -259)
-texture = ExtResource("2_gap3c")
+[node name="Particle18" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(51, 95)
+
+[node name="Particle19" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(210, 88)
+
+[node name="Particle20" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(-86, 68)
+
+[node name="Particle21" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(90, -53)
