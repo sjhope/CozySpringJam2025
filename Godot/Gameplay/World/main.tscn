@@ -1,46 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://brrm44dymh5lg"]
+[gd_scene load_steps=6 format=3 uid="uid://brrm44dymh5lg"]
 
 [ext_resource type="PackedScene" uid="uid://btw2crosmbyhc" path="res://Gameplay/Player/player.tscn" id="1_mnrq8"]
-[ext_resource type="PackedScene" uid="uid://t4rji6isqv5y" path="res://Gameplay/Particles/particle.tscn" id="2_qepn6"]
-[ext_resource type="PackedScene" uid="uid://qagm3vaopivx" path="res://Gameplay/Particles/particle_2.tscn" id="3_mnrq8"]
+[ext_resource type="PackedScene" uid="uid://t4rji6isqv5y" path="res://Gameplay/Particles/particle_simple.tscn" id="2_qepn6"]
+[ext_resource type="PackedScene" uid="uid://qagm3vaopivx" path="res://Gameplay/Particles/particle_long.tscn" id="3_mnrq8"]
+[ext_resource type="PackedScene" uid="uid://dnb5m24c3tset" path="res://Gameplay/Particles/particle_consumer.tscn" id="4_gap3c"]
+[ext_resource type="PackedScene" uid="uid://ckpkaskr2aqer" path="res://Gameplay/Particles/particle_producer.tscn" id="5_hdx3s"]
 
 [node name="main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_mnrq8")]
 position = Vector2(400, 183)
+_thrust = 400.0
 
-[node name="Particle" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(298, 142)
+[node name="Particle Consumer" parent="." instance=ExtResource("4_gap3c")]
+position = Vector2(264, 181)
 
-[node name="Particle4" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(311, 156)
+[node name="Particle Consumer2" parent="." instance=ExtResource("4_gap3c")]
+position = Vector2(284, 229)
+mass = 5.0
+_energy_factor = 0.01
+_max_size = Vector2(3, 3)
 
-[node name="Particle5" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(235, 160)
+[node name="Particle Simple" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(334, 107)
 
-[node name="Particle6" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(257, 200)
+[node name="Particle Long" parent="." instance=ExtResource("3_mnrq8")]
+position = Vector2(340, 235)
 
-[node name="Particle7" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(207, 205)
+[node name="Particle Simple2" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(292, 131)
 
-[node name="Particle8" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(235, 212)
+[node name="Particle Simple3" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(246, 95)
 
-[node name="Particle9" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(192, 179)
+[node name="Particle Simple4" parent="." instance=ExtResource("2_qepn6")]
+position = Vector2(324, 176)
 
-[node name="Particle10" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(225, 119)
-
-[node name="Particle11" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(256, 121)
-
-[node name="Particle12" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(266, 163)
-
-[node name="Particle2" parent="." instance=ExtResource("3_mnrq8")]
-position = Vector2(345, 209)
-
-[node name="Particle3" parent="." instance=ExtResource("3_mnrq8")]
-position = Vector2(354, 138)
+[node name="Particle Producer" parent="." instance=ExtResource("5_hdx3s")]
+position = Vector2(418, 223)
+_energy_value = 0.5

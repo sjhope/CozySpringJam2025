@@ -1,7 +1,6 @@
 extends CharacterBody2D
 class_name Player
 
-const EPSILON : float = 1e-5
 const STOP_DISTANCE : float = 40.0       
 const ROT_EASE : float = 6.0        
 
@@ -25,7 +24,7 @@ func _physics_process(delta: float) -> void:
 
 	# apply drag
 	velocity -= velocity * FluidManager.VISCOSITY * FluidManager.DRAG_COEFF * delta
-	if velocity.length_squared() < EPSILON:
+	if velocity.length_squared() < FluidManager.EPSILON:
 		velocity = Vector2.ZERO
 
 	_update_grabber()

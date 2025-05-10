@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnb5m24c3tset"]
+
+[ext_resource type="Script" uid="uid://icr6vl86xfn0" path="res://Gameplay/Particles/scripts/particle_consumer.gd" id="1_dqcxf"]
+[ext_resource type="Texture2D" uid="uid://codvwwll6ogvs" path="res://Graphics/Particles/test_particle.png" id="2_cev4p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mnrq8"]
+radius = 6.0
+
+[node name="Particle Consumer" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 2
+gravity_scale = 0.0
+linear_damp = 0.5
+angular_damp = 0.5
+script = ExtResource("1_dqcxf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.235294, 1, 1)
+texture = ExtResource("2_cev4p")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_mnrq8")
+debug_color = Color(0.935097, 1.9156e-05, 0.637821, 0.42)
+metadata/_edit_lock_ = true

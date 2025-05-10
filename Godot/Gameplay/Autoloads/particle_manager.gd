@@ -1,10 +1,11 @@
 extends Node
 
-const LINK_RADIUS : float = 20        
-const BREAK_DIST  : float = LINK_RADIUS * 1.5
+const LINK_RADIUS : float = 10        
+const BREAK_DIST  : float = LINK_RADIUS * 5.0
 const SOFTNESS    : float = 2.0       
 
 var particles : Array[ParticleBasic] = []
+var _rng = RandomNumberGenerator.new()
 
 func _physics_process(delta: float) -> void:
 	var n := particles.size()
@@ -14,7 +15,8 @@ func _physics_process(delta: float) -> void:
 		var a := particles[i]
 		for j in range(i + 1, n):
 			var b := particles[j]
-			if a.global_position.distance_to(b.global_position) > LINK_RADIUS: continue
+			
+			if a.global_position.distance_to(b.global_position) > LINK_RADIUS * a.cur_scale.length() : continue
 			if _pair_has_joint(a, b): continue
 			_make_pin(a, b)
 
@@ -55,8 +57,12 @@ func _make_pin(a: ParticleBasic, b: ParticleBasic) -> void:
 
 func register_particle(particle: ParticleBasic) -> void:    
 	particles.append(particle)
+	particle.offset = _get_offset()
 
 func unregister_particle(particle: ParticleBasic) -> void:
 	for joint in particle.spring_joints:
 		if is_instance_valid(joint): joint.queue_free()
 	particles.erase(particle)
+
+func _get_offset() -> float:
+	return _rng.randf_range(0.0, 1.0)
