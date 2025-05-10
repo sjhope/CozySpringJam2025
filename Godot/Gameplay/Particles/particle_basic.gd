@@ -1,56 +1,45 @@
-extends Node2D
+extends RigidBody2D
 class_name ParticleBasic
 
-const EPSILON : float = 1e-5
+enum ShapeType { CIRCLE, CAPSULE }
 
-@export var velocity: Vector2 = Vector2.ZERO
-@export var radius: float  =  8.0
+@export var _shape_type : ShapeType = ShapeType.CIRCLE
+@export var _radius : float = 8.0
+@export var _half_length : float = 16.0
 
-@export var link_radius: float  = 64.0      # how far attraction acts (radius * 8)?
-@export var link_strength: float  = 500.0     # "spring" coeff
+var spring_joints : Array[PinJoint2D] = []
 
-static var _all_particles: Array = []
+func _ready() -> void:
+	setup_collider()
+	ParticleManager.register_particle(self)
+	linear_damp = FluidManager.VISCOSITY * FluidManager.DRAG_COEFF
 
-func _enter_tree() -> void: _all_particles.append(self)
-func _exit_tree() -> void: _all_particles.erase(self)
+func _exit_tree() -> void: 
+	ParticleManager.unregister_particle(self)
 
-func _physics_process(delta: float) -> void:
-	_handle_attractor(delta)
+func hold() -> void:
+	freeze = true
+
+func release(vel: Vector2) -> void:
+	freeze = false
+	linear_velocity = vel
+
+func setup_collider() -> void:
+	var col := get_node_or_null("CollisionShape2D")
 	
-	velocity -= velocity * FluidManager.VISCOSITY * FluidManager.DRAG_COEFF * delta
-	
-	if velocity.length_squared() < EPSILON:
-		velocity = Vector2.ZERO
-	global_position += velocity * delta
-
-func _handle_attractor(delta: float) -> void:
-	for i in range(_all_particles.size()):
-		var other = _all_particles[i]
+	if col == null:
+		col = CollisionShape2D.new()
+		col.name = "CollisionShape2D"
+		add_child(col)
 		
-		if other == self: continue
-		if int(self.get_instance_id()) > int(other.get_instance_id()): continue  
-
-		var offset  = other.global_position - global_position
-		var dist = offset.length()
-		if dist < EPSILON: continue
-
-		var min_d = radius + other.radius
-
-		# particle collision
-		if dist < min_d:
-			var push = offset.normalized() * (min_d - dist) * 0.5
-			global_position -= push
-			other.global_position += push
-
-			var normal = offset.normalized()
-			var rel_vel = velocity - other.velocity
-			var impulse = normal * rel_vel.dot(normal) * 0.5
-			velocity -= impulse
-			other.velocity += impulse
-
-		# spring force
-		elif dist < link_radius:
-			var falloff = 1.0 - dist / link_radius
-			var force = offset.normalized() * link_strength * falloff * delta
-			velocity += force 
-			other.velocity -= force 
+		match _shape_type:
+			ShapeType.CIRCLE:
+				var shape := CircleShape2D.new()
+				shape.radius = max(_radius, 1.0)
+				col.shape = shape
+				
+			ShapeType.CAPSULE:
+				var shape := CapsuleShape2D.new()
+				shape.radius = max(_radius, 1.0)
+				shape.height = max(_half_length, 0.0) * 2.0
+				col.shape = shape

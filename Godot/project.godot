@@ -18,6 +18,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 FluidManager="*res://Gameplay/Autoloads/fluid_manager.gd"
+ParticleManager="*res://Gameplay/Autoloads/particle_manager.gd"
+
+[global_group]
+
+particles=""
 
 [input]
 

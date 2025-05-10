@@ -9,7 +9,8 @@
 radius = 16.1245
 
 [node name="Player" type="CharacterBody2D"]
-collision_mask = 2
+collision_layer = 0
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_onrkg")
 
@@ -24,6 +25,7 @@ metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+position_smoothing_enabled = true
 
 [node name="Grabber" type="Area2D" parent="."]
 position = Vector2(0, -23)

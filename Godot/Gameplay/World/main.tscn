@@ -1,73 +1,46 @@
-[gd_scene load_steps=3 format=3 uid="uid://brrm44dymh5lg"]
+[gd_scene load_steps=4 format=3 uid="uid://brrm44dymh5lg"]
 
 [ext_resource type="PackedScene" uid="uid://btw2crosmbyhc" path="res://Gameplay/Player/player.tscn" id="1_mnrq8"]
 [ext_resource type="PackedScene" uid="uid://t4rji6isqv5y" path="res://Gameplay/Particles/particle.tscn" id="2_qepn6"]
+[ext_resource type="PackedScene" uid="uid://qagm3vaopivx" path="res://Gameplay/Particles/particle_2.tscn" id="3_mnrq8"]
 
 [node name="main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_mnrq8")]
 position = Vector2(400, 183)
-thrust = 500.0
 
 [node name="Particle" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(395, 109)
-
-[node name="Particle2" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(463, 137)
-
-[node name="Particle3" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(289, 124)
+position = Vector2(298, 142)
 
 [node name="Particle4" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(302, 236)
+position = Vector2(311, 156)
 
 [node name="Particle5" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(461, 229)
+position = Vector2(235, 160)
 
 [node name="Particle6" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(165, 209)
+position = Vector2(257, 200)
 
 [node name="Particle7" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(341, 88)
+position = Vector2(207, 205)
 
 [node name="Particle8" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(628, 291)
+position = Vector2(235, 212)
 
 [node name="Particle9" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(696, 319)
+position = Vector2(192, 179)
 
 [node name="Particle10" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(522, 306)
+position = Vector2(225, 119)
 
 [node name="Particle11" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(535, 418)
+position = Vector2(256, 121)
 
 [node name="Particle12" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(694, 411)
+position = Vector2(266, 163)
 
-[node name="Particle13" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(398, 391)
+[node name="Particle2" parent="." instance=ExtResource("3_mnrq8")]
+position = Vector2(345, 209)
 
-[node name="Particle14" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(574, 270)
-
-[node name="Particle15" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(144, -32)
-
-[node name="Particle16" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(212, -4)
-
-[node name="Particle17" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(38, -17)
-
-[node name="Particle18" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(51, 95)
-
-[node name="Particle19" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(210, 88)
-
-[node name="Particle20" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(-86, 68)
-
-[node name="Particle21" parent="." instance=ExtResource("2_qepn6")]
-position = Vector2(90, -53)
+[node name="Particle3" parent="." instance=ExtResource("3_mnrq8")]
+position = Vector2(354, 138)

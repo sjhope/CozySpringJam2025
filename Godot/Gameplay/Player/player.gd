@@ -2,58 +2,55 @@ extends CharacterBody2D
 class_name Player
 
 const EPSILON : float = 1e-5
+const STOP_DISTANCE : float = 40.0       
+const ROT_EASE : float = 6.0        
 
-@export var thrust: float = 300.0     # thrust maximum to be assumed only possible at a viscosity of zero
-@export var turn_rate: float = 4.0    
+@export var _thrust : float = 300.0
 
-@export var grab_force: float = 10.0
-@onready var grabber: Area2D = $Grabber
-@onready var grab_shape: CollisionShape2D  = $Grabber/CollisionShape2D
+@onready var _grabber : Area2D = $Grabber
+@onready var _grab_shape : CollisionShape2D  = $Grabber/CollisionShape2D
 
-var _grabbed_particle: ParticleBasic = null
-var _grab_radius: float
-
-func _ready() -> void:
-		_grab_radius = grab_shape.shape.radius * grab_shape.global_scale.x
+var _held : ParticleBasic = null
 
 func _physics_process(delta: float) -> void:
-	# forward thrust
-	var thrust_input := Input.get_action_strength("Up") - Input.get_action_strength("Down")
-	if thrust_input != 0.0:
-		velocity += Vector2.UP.rotated(rotation) * thrust * thrust_input * (1.0 - FluidManager.VISCOSITY) * delta
-	
-	# rotation
-	var rot_input := Input.get_action_strength("Right") - Input.get_action_strength("Left")
-	rotation += rot_input * turn_rate * (1.0 - FluidManager.VISCOSITY) * delta
+	# move toward mouse
+	var to_mouse: Vector2 = get_global_mouse_position() - global_position
+	var target_angle : float = to_mouse.angle() + PI / 2
+	rotation = lerp_angle(rotation, target_angle, ROT_EASE * delta * (1.0 - FluidManager.VISCOSITY))
+
+	# calc thrust
+	if to_mouse.length() > STOP_DISTANCE:
+		var auto_accel := Vector2.UP.rotated(rotation) * lerpf(0.0, _thrust, clamp(to_mouse.length() / 100, 0.0, 1.0))
+		velocity += auto_accel * (1.0 - FluidManager.VISCOSITY) * delta
 
 	# apply drag
-	velocity -= velocity * FluidManager.VISCOSITY * FluidManager.DRAG_COEFF * delta        
+	velocity -= velocity * FluidManager.VISCOSITY * FluidManager.DRAG_COEFF * delta
 	if velocity.length_squared() < EPSILON:
 		velocity = Vector2.ZERO
 
-	# grabber
-	if Input.is_action_pressed("Action"):
-		if _grabbed_particle == null or !is_instance_valid(_grabbed_particle):
-			
-			# get closest particle to grabber center
-			var nearest_dist : float = INF
-			for area in grabber.get_overlapping_areas():
-				var particle := area.get_parent() as ParticleBasic
-				if particle:
-					var distance := (particle.global_position - grabber.global_position).length()
-					if distance < nearest_dist:
-						nearest_dist = distance
-						_grabbed_particle = particle
-		
-		# while holding keep particle snapped
-		# TODO: need this to lerp into position, rather than perfectly snap
-		if _grabbed_particle and is_instance_valid(_grabbed_particle):
-			_grabbed_particle.global_position = grabber.global_position
-			_grabbed_particle.velocity = Vector2.ZERO
-	else:
-		# "launch" a particle when let go
-		if _grabbed_particle and is_instance_valid(_grabbed_particle):
-			_grabbed_particle.velocity = velocity * 2
-			_grabbed_particle = null    
+	_update_grabber()
+	move_and_slide()
 
-	move_and_slide()               
+func _update_grabber() -> void:
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		if _held == null:
+			_held = _nearest_particle()
+			if _held: _held.hold()
+		else: _held.global_position = _grabber.global_position
+	else:
+		if _held:
+			_held.release(velocity * 2.0)
+			_held = null
+
+func _nearest_particle() -> ParticleBasic:
+	var best : ParticleBasic = null
+	var best_d := INF
+
+	for area in _grabber.get_overlapping_areas():
+		var particle := area.get_parent() as ParticleBasic
+		if particle:
+			var dist := particle.global_position.distance_to(_grabber.global_position)
+			if dist < best_d:
+				best_d = dist
+				best = particle
+	return best
