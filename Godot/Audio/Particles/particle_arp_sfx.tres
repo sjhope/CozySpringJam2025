@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="StreamDescriptor" load_steps=2 format=3 uid="uid://4kk1lrmxm8qc"]
+
+[ext_resource type="Script" uid="uid://cii4204pvu8qw" path="res://Audio/Particles/stream_descriptor.gd" id="1_n88sl"]
+
+[resource]
+script = ExtResource("1_n88sl")
+variations = Array[AudioStream]([])
+enabled = false
+time_scale = 1.0
+time_scale_rand = 0.1
+stream_offset = 0.0
+stream_offset_rand = 0.0
+play_offset = 4.89
+play_offset_rand = 4.41
+play_gap = 18.24
+play_gap_rand = 11.965
+volume = 0.5
+volume_rand = 0.5
+pitch_scale = 1.0
+pitch_scale_rand = 0.04
+flags = ""
+metadata/_custom_type_script = "uid://cii4204pvu8qw"

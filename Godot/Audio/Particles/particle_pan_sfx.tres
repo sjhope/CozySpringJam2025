@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="StreamDescriptor" load_steps=3 format=3 uid="uid://c0ljr1louvd5h"]
+
+[ext_resource type="Script" uid="uid://cii4204pvu8qw" path="res://Audio/Particles/stream_descriptor.gd" id="1_cjiex"]
+[ext_resource type="AudioStream" uid="uid://duasl7tb5f633" path="res://Audio/World/Pan (Mono).mp3" id="2_cjiex"]
+
+[resource]
+script = ExtResource("1_cjiex")
+variations = Array[AudioStream]([ExtResource("2_cjiex")])
+enabled = true
+time_scale = 1.0
+time_scale_rand = 0.0
+stream_offset = 0.0
+stream_offset_rand = 0.0
+play_offset = 0.2
+play_offset_rand = 10.0
+play_gap = 0.2
+play_gap_rand = 10.0
+volume = 0.6
+volume_rand = 0.3
+pitch_scale = 0.99
+pitch_scale_rand = 0.03
+flags = "TIME"
+metadata/_custom_type_script = "uid://cii4204pvu8qw"

@@ -1,0 +1,44 @@
+[gd_scene load_steps=11 format=3 uid="uid://v6n6ny5wutpl"]
+
+[ext_resource type="Script" uid="uid://dw5kx42jhoqtq" path="res://Dev/AJ/Old/particle_basic_old.gd" id="1_oa75m"]
+[ext_resource type="Texture2D" uid="uid://c6h1kx3h23svd" path="res://Graphics/Particles/test_particle_2.png" id="2_x2b6q"]
+[ext_resource type="Material" uid="uid://bv1d1nr23royi" path="res://Graphics/Particles/particle_material.tres" id="3_nvydl"]
+[ext_resource type="Script" uid="uid://bkjv58jlkqbid" path="res://Graphics/Particles/random_particle_color.gd" id="4_x3dfp"]
+[ext_resource type="Script" uid="uid://xu2eppsdmccc" path="res://Audio/Particles/audio_stream_offset.gd" id="5_ap0xc"]
+[ext_resource type="Script" uid="uid://cii4204pvu8qw" path="res://Audio/Particles/stream_descriptor.gd" id="6_huhlt"]
+[ext_resource type="Resource" uid="uid://c0ljr1louvd5h" path="res://Audio/Particles/particle_pan_sfx.tres" id="7_jduu2"]
+[ext_resource type="Resource" uid="uid://4kk1lrmxm8qc" path="res://Audio/Particles/particle_arp_sfx.tres" id="8_bqavj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mnrq8"]
+radius = 20.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_h1s8d"]
+size = Vector2(200, 200)
+subdivide_width = 2
+subdivide_depth = 2
+
+[node name="Particle" type="Node2D"]
+script = ExtResource("1_oa75m")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_x2b6q")
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_mnrq8")
+debug_color = Color(0.00242273, 0.651337, 0, 0.42)
+metadata/_edit_lock_ = true
+
+[node name="ParticleMesh" type="MeshInstance2D" parent="."]
+material = ExtResource("3_nvydl")
+mesh = SubResource("QuadMesh_h1s8d")
+script = ExtResource("4_x3dfp")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("5_ap0xc")
+sounds = Array[ExtResource("6_huhlt")]([ExtResource("7_jduu2"), ExtResource("8_bqavj")])

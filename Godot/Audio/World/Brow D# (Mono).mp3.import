@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://drotqv67vhfv2"
+path="res://.godot/imported/Brow D# (Mono).mp3-da6e6eecefb2ea169d6a92942c71f129.mp3str"
+
+[deps]
+
+source_file="res://Audio/World/Brow D# (Mono).mp3"
+dest_files=["res://.godot/imported/Brow D# (Mono).mp3-da6e6eecefb2ea169d6a92942c71f129.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

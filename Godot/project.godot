@@ -20,6 +20,12 @@ config/icon="res://icon.svg"
 FluidManager="*res://Gameplay/Autoloads/fluid_manager.gd"
 ParticleManager="*res://Gameplay/Autoloads/particle_manager.gd"
 
+[display]
+
+window/size/viewport_width=1200
+window/size/viewport_height=1200
+window/size/borderless=true
+
 [global_group]
 
 particles=""
@@ -62,4 +68,5 @@ Action={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+viewport/hdr_2d=true
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)

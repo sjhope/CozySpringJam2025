@@ -1,0 +1,103 @@
+[gd_scene load_steps=7 format=3 uid="uid://basokkdvy0oug"]
+
+[ext_resource type="Shader" uid="uid://c0fife5fpe7ym" path="res://Dev/AJ/Old/pp_canvas_border.gdshader" id="1_3e3ut"]
+[ext_resource type="Shader" uid="uid://cgoanbut3aouy" path="res://Graphics/World/pp_global.gdshader" id="2_hla7s"]
+[ext_resource type="PackedScene" uid="uid://v6n6ny5wutpl" path="res://Dev/AJ/Old/particle_old.tscn" id="3_hla7s"]
+[ext_resource type="PackedScene" uid="uid://hkori57otmb8" path="res://Dev/AJ/Old/player_old.tscn" id="4_jeqon"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jeqon"]
+shader = ExtResource("1_3e3ut")
+shader_parameter/noise_scale = 0.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2jce0"]
+shader = ExtResource("2_hla7s")
+shader_parameter/noise_scale = 0.2
+
+[node name="AJTestScene" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="PP0" type="ColorRect" parent="CanvasLayer"]
+visible = false
+material = SubResource("ShaderMaterial_jeqon")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PP1" type="ColorRect" parent="CanvasLayer"]
+visible = false
+material = SubResource("ShaderMaterial_2jce0")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Particle" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(72.5759, -22.0956)
+
+[node name="Particle2" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(140.576, 5.90445)
+
+[node name="Particle3" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(245.426, 5.904)
+
+[node name="Particle4" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(-20.4241, 104.904)
+
+[node name="Particle5" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(138.576, 97.9044)
+
+[node name="Particle6" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(-157.424, 77.9044)
+
+[node name="Particle7" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(18.5759, -43.0956)
+
+[node name="Particle8" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(305.576, 159.904)
+
+[node name="Particle9" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(373.576, 187.904)
+
+[node name="Particle10" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(226.576, 285.904)
+
+[node name="Particle11" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(-342.936, 8.50404)
+
+[node name="Particle12" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(482.004, -76.2316)
+
+[node name="Particle13" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(-326.305, -126.158)
+
+[node name="Particle14" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(-358.631, 178.987)
+
+[node name="Particle15" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(-74.0114, -204.872)
+
+[node name="Particle16" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(-677.619, 160.04)
+
+[node name="Particle17" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(508.171, 448.11)
+
+[node name="Particle18" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(-214.619, 242.04)
+
+[node name="Particle19" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(85.2946, 432.702)
+
+[node name="Particle20" parent="." instance=ExtResource("3_hla7s")]
+position = Vector2(-293.619, 368.04)
+
+[node name="Player" parent="." instance=ExtResource("4_jeqon")]
+position = Vector2(77.5759, 51.9044)
+thrust = 500.0
