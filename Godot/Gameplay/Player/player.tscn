@@ -1,14 +1,34 @@
-[gd_scene load_steps=10 format=3 uid="uid://btw2crosmbyhc"]
+[gd_scene load_steps=17 format=3 uid="uid://btw2crosmbyhc"]
 
 [ext_resource type="Script" uid="uid://ba1mv6gq41xf0" path="res://Gameplay/Player/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://dvp81hk4i8nww" path="res://Graphics/Player/test_slime.png" id="2_i3pqv"]
 [ext_resource type="Shader" uid="uid://bi0u7jwq0oysd" path="res://Graphics/World/pp_background.gdshader" id="3_0t57j"]
+[ext_resource type="Shader" uid="uid://c7yft108pbj5k" path="res://Graphics/Player/w_player.gdshader" id="4_0t57j"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0t57j"]
+noise_type = 2
+fractal_type = 3
+fractal_octaves = 4
+fractal_lacunarity = 2.3
+fractal_gain = -0.635
+fractal_weighted_strength = 1.0
+fractal_ping_pong_strength = 1.295
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bsnc0"]
+width = 1024
+height = 1024
+seamless = true
+normalize = false
+noise = SubResource("FastNoiseLite_0t57j")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_hkase"]
 frequency = 0.0104
 fractal_type = 3
-fractal_octaves = 6
-fractal_lacunarity = 0.61
+fractal_octaves = 3
+fractal_lacunarity = 2.42
+fractal_gain = -0.235
+fractal_weighted_strength = 0.3
+fractal_ping_pong_strength = 2.725
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hkase"]
 width = 2048
@@ -19,12 +39,31 @@ noise = SubResource("FastNoiseLite_hkase")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p1coc"]
 shader = ExtResource("3_0t57j")
-shader_parameter/noise_tex = SubResource("NoiseTexture2D_hkase")
+shader_parameter/vines_noise_tex = SubResource("NoiseTexture2D_hkase")
+shader_parameter/splotches_noise_tex = SubResource("NoiseTexture2D_bsnc0")
 
 [sub_resource type="QuadMesh" id="QuadMesh_vmb5c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
 radius = 25.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bsnc0"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8bo20"]
+seamless = true
+noise = SubResource("FastNoiseLite_bsnc0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vmb5c"]
+shader = ExtResource("4_0t57j")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_8bo20")
+shader_parameter/color = Color(0.92, 0.94, 7.183, 1)
+shader_parameter/id = 0.0
+shader_parameter/noise_scale = 0.1
+
+[sub_resource type="QuadMesh" id="QuadMesh_bpqns"]
+size = Vector2(250, 250)
+subdivide_width = 2
+subdivide_depth = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t4lfm"]
 radius = 18.0
@@ -34,6 +73,7 @@ collision_layer = 0
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_onrkg")
+_turn_rate = 15.51
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -56,9 +96,15 @@ debug_color = Color(0.890546, 0.226492, 0.588801, 0.42)
 metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 z_index = 150
 texture = ExtResource("2_i3pqv")
 metadata/_edit_lock_ = true
+
+[node name="PlayerMesh" type="MeshInstance2D" parent="."]
+z_index = 200
+material = SubResource("ShaderMaterial_vmb5c")
+mesh = SubResource("QuadMesh_bpqns")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)

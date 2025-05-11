@@ -172,6 +172,87 @@ float voronoise( in vec2 p, float u, float v )
     return a.x/a.y;
 }
 
+// Created by inigo quilez - iq/2013
+// License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+// http://www.iquilezles.org/www/articles/voronoilines/voronoilines.htm
+
+vec2 random2( vec2 p ) {
+    return fract(sin(vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3))))*43758.5453);
+}
+
+vec3 voronoi( in vec2 x ) {
+    vec2 n = floor(x);
+    vec2 f = fract(x);
+
+    // first pass: regular voronoi
+    vec2 mg, mr;
+    float md = 8.0;
+    for (int j= -1; j <= 1; j++) {
+        for (int i= -1; i <= 1; i++) {
+            vec2 g = vec2(float(i),float(j));
+            vec2 o = random2( n + g );
+            o = 0.5 + 0.5*sin( TIME + 6.2831*o );
+
+            vec2 r = g + o - f;
+            float d = dot(r,r);
+
+            if( d<md ) {
+                md = d;
+                mr = r;
+                mg = g;
+            }
+        }
+    }
+
+    // second pass: distance to borders
+    md = 8.0;
+    for (int j= -2; j <= 2; j++) {
+        for (int i= -2; i <= 2; i++) {
+            vec2 g = mg + vec2(float(i),float(j));
+            vec2 o = random2( n + g );
+            o = 0.5 + 0.5*sin( TIME + 6.2831*o );
+
+            vec2 r = g + o - f;
+
+            if ( dot(mr-r,mr-r)>0.00001 ) {
+                md = min(md, dot( 0.5*(mr+r), normalize(r-mr) ));
+            }
+        }
+    }
+    return vec3(md, mr);
+}
+
+// The MIT License
+// Copyright © 2018 Inigo Quilez
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// Distance to an uneven capsule. Uses between 1 and 2 square roots
+
+float cro(in vec2 a, in vec2 b ) { return a.x*b.y - a.y*b.x; }
+
+float sd_uneven_capsule( in vec2 p, in vec2 pa, in vec2 pb, in float ra, in float rb )
+{
+    p  -= pa;
+    pb -= pa;
+    float h = dot(pb,pb);
+    vec2  q = vec2( dot(p,vec2(pb.y,-pb.x)), dot(p,pb) )/h;
+    
+    //-----------
+    
+    q.x = abs(q.x);
+    
+    float b = ra-rb;
+    vec2  c = vec2(sqrt(h-b*b),b);
+    
+    float k = cro(c,q);
+    float m = dot(c,q);
+    float n = dot(q,q);
+    
+         if( k < 0.0 ) return sqrt(h*(n            )) - ra;
+    else if( k > c.x ) return sqrt(h*(n+1.0-2.0*q.y)) - rb;
+                       return m                       - ra;
+}
+
 float spiralSDF(vec2 p,vec2 c, float t) {
 	const float a=1.0;
 	const float b=.1759;
@@ -274,4 +355,8 @@ float rgb_to_hue(vec3 rgb) {
     if (hue < 0.0) hue = hue + 360.0;
 
     return round(hue);
+}
+
+vec2 cart2polar(vec2 cart) {
+    return vec2(atan(cart.y, cart.x), length(cart));
 }

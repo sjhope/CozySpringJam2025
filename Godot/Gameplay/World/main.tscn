@@ -1,14 +1,43 @@
-[gd_scene load_steps=8 format=3 uid="uid://brrm44dymh5lg"]
+[gd_scene load_steps=11 format=3 uid="uid://brrm44dymh5lg"]
 
 [ext_resource type="PackedScene" uid="uid://btw2crosmbyhc" path="res://Gameplay/Player/player.tscn" id="1_mnrq8"]
+[ext_resource type="Shader" uid="uid://cgoanbut3aouy" path="res://Graphics/World/pp_global.gdshader" id="1_t21fx"]
 [ext_resource type="PackedScene" uid="uid://t4rji6isqv5y" path="res://Gameplay/Particles/particle_simple.tscn" id="2_qepn6"]
 [ext_resource type="PackedScene" uid="uid://qagm3vaopivx" path="res://Gameplay/Particles/particle_long.tscn" id="3_mnrq8"]
 [ext_resource type="PackedScene" uid="uid://dnb5m24c3tset" path="res://Gameplay/Particles/particle_consumer.tscn" id="4_gap3c"]
 [ext_resource type="PackedScene" uid="uid://ckpkaskr2aqer" path="res://Gameplay/Particles/particle_producer.tscn" id="5_hdx3s"]
-[ext_resource type="PackedScene" uid="uid://dbhecs0m0ij0n" path="res://Gameplay/Particles/particle_3bone.tscn" id="5_wd0kj"]
 [ext_resource type="PackedScene" uid="uid://mddsi5jn5n7c" path="res://Gameplay/Particles/particle_2bone.tscn" id="6_b75u6"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_t21fx"]
+noise_type = 3
+frequency = 0.0165
+fractal_lacunarity = 1.64
+fractal_weighted_strength = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r60mp"]
+generate_mipmaps = false
+seamless = true
+noise = SubResource("FastNoiseLite_t21fx")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r60mp"]
+shader = ExtResource("1_t21fx")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_r60mp")
+shader_parameter/noise_scale = 1.0
+
 [node name="main" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PostProcess" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_r60mp")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Player" parent="." instance=ExtResource("1_mnrq8")]
+position = Vector2(400, 183)
 
 [node name="Particle Producer" parent="." instance=ExtResource("5_hdx3s")]
 position = Vector2(405.171, 322.553)
@@ -38,12 +67,5 @@ position = Vector2(312.23, 183.575)
 [node name="Particle Long" parent="." instance=ExtResource("3_mnrq8")]
 position = Vector2(462.396, 229.775)
 
-[node name="ParticleBoneTest2" parent="." instance=ExtResource("5_wd0kj")]
-visible = false
-position = Vector2(320, 360)
-
 [node name="ParticleBoneTest" parent="." instance=ExtResource("6_b75u6")]
 position = Vector2(564.213, 244.994)
-
-[node name="Player" parent="." instance=ExtResource("1_mnrq8")]
-position = Vector2(400, 183)

@@ -1,5 +1,5 @@
 shader_type canvas_item;
-//render_mode blend_add;
+render_mode blend_sub;
 
 #include "res://Graphics/shader_lib.gdshaderinc"
 
@@ -31,7 +31,7 @@ void fragment() {
 	ndc.x += sin(ndc.y * wiggle_frequency + TIME * wiggle_speed) * wiggle_amplitude;
 	
 	float noise = texture(noise_tex, fract(world_uv * 0.2)).r;
-	COLOR.rgb = vec3(0.0);
+	COLOR.rgb = vec3(0.3);
 	float a1 = dot(smoothstep(0.5, 0.75, 1.0 - abs(ndc.y)), smoothstep(0.8, 1.0, 1.0 - abs(ndc.x)));
 	float a2 = dot(smoothstep(0.4, 0.9, 1.0 - abs(ndc.y)), smoothstep(0.65, 1.0, 1.0 - abs(ndc.x))) * 0.4;
 	COLOR.a = mix(a1, noise, a2) + (a1 + a2) * 0.5;
