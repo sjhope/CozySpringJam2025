@@ -8,4 +8,4 @@ func _ready() -> void:
 	#	Color(255.0 / 255.0, 239.0 / 255.0, 8.0 / 255.0)
 	# 	].pick_random())
 	material.set_shader_parameter("hue", [ 140.0, 322.0, 193.0, 56.0 ].pick_random())
-	# material.set_shader_parameter("id", get_instance_id())
+	material.set_shader_parameter("id", get_instance_id())

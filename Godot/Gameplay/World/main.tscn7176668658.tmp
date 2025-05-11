@@ -1,12 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://brrm44dymh5lg"]
+[gd_scene load_steps=6 format=3 uid="uid://brrm44dymh5lg"]
 
 [ext_resource type="PackedScene" uid="uid://btw2crosmbyhc" path="res://Gameplay/Player/player.tscn" id="1_mnrq8"]
 [ext_resource type="PackedScene" uid="uid://t4rji6isqv5y" path="res://Gameplay/Particles/particle_simple.tscn" id="2_qepn6"]
 [ext_resource type="PackedScene" uid="uid://qagm3vaopivx" path="res://Gameplay/Particles/particle_long.tscn" id="3_mnrq8"]
 [ext_resource type="PackedScene" uid="uid://dnb5m24c3tset" path="res://Gameplay/Particles/particle_consumer.tscn" id="4_gap3c"]
 [ext_resource type="PackedScene" uid="uid://ckpkaskr2aqer" path="res://Gameplay/Particles/particle_producer.tscn" id="5_hdx3s"]
-[ext_resource type="PackedScene" uid="uid://dbhecs0m0ij0n" path="res://Gameplay/Particles/particle_3bone.tscn" id="5_wd0kj"]
-[ext_resource type="PackedScene" uid="uid://mddsi5jn5n7c" path="res://Gameplay/Particles/particle_2bone.tscn" id="6_b75u6"]
 
 [node name="main" type="Node2D"]
 
@@ -26,6 +24,9 @@ _max_size = Vector2(3, 3)
 [node name="Particle Simple" parent="." instance=ExtResource("2_qepn6")]
 position = Vector2(334, 107)
 
+[node name="Particle Long" parent="." instance=ExtResource("3_mnrq8")]
+position = Vector2(329.18, 353.395)
+
 [node name="Particle Simple2" parent="." instance=ExtResource("2_qepn6")]
 position = Vector2(314.63, 109.615)
 
@@ -34,16 +35,6 @@ position = Vector2(246, 95)
 
 [node name="Particle Simple4" parent="." instance=ExtResource("2_qepn6")]
 position = Vector2(312.23, 183.575)
-
-[node name="Particle Long" parent="." instance=ExtResource("3_mnrq8")]
-position = Vector2(462.396, 229.775)
-
-[node name="ParticleBoneTest2" parent="." instance=ExtResource("5_wd0kj")]
-visible = false
-position = Vector2(320, 360)
-
-[node name="ParticleBoneTest" parent="." instance=ExtResource("6_b75u6")]
-position = Vector2(564.213, 244.994)
 
 [node name="Player" parent="." instance=ExtResource("1_mnrq8")]
 position = Vector2(400, 183)

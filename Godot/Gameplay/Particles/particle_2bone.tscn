@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://mddsi5jn5n7c"]
+
+[ext_resource type="PackedScene" uid="uid://qagm3vaopivx" path="res://Gameplay/Particles/particle_long.tscn" id="1_2sd3d"]
+
+[node name="ParticleBoneTest" type="Node2D"]
+
+[node name="Particle Long A" parent="." instance=ExtResource("1_2sd3d")]
+position = Vector2(0, 25)
+
+[node name="Particle Long B" parent="." instance=ExtResource("1_2sd3d")]
+position = Vector2(0, -25)
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+node_a = NodePath("../Particle Long A")
+node_b = NodePath("../Particle Long B")

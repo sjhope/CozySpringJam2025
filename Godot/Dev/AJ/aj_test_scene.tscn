@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://basokkdvy0oug"]
+[gd_scene load_steps=8 format=3 uid="uid://basokkdvy0oug"]
 
 [ext_resource type="Shader" uid="uid://c0fife5fpe7ym" path="res://Dev/AJ/Old/pp_canvas_border.gdshader" id="1_3e3ut"]
 [ext_resource type="Shader" uid="uid://cgoanbut3aouy" path="res://Graphics/World/pp_global.gdshader" id="2_hla7s"]
 [ext_resource type="PackedScene" uid="uid://v6n6ny5wutpl" path="res://Dev/AJ/Old/particle_old.tscn" id="3_hla7s"]
+[ext_resource type="PackedScene" uid="uid://t4rji6isqv5y" path="res://Gameplay/Particles/particle_simple.tscn" id="4_3e3ut"]
 [ext_resource type="PackedScene" uid="uid://hkori57otmb8" path="res://Dev/AJ/Old/player_old.tscn" id="4_jeqon"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jeqon"]
@@ -97,6 +98,9 @@ position = Vector2(85.2946, 432.702)
 
 [node name="Particle20" parent="." instance=ExtResource("3_hla7s")]
 position = Vector2(-293.619, 368.04)
+
+[node name="Particle Simple" parent="." instance=ExtResource("4_3e3ut")]
+position = Vector2(-69.145, 0)
 
 [node name="Player" parent="." instance=ExtResource("4_jeqon")]
 position = Vector2(77.5759, 51.9044)

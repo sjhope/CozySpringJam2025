@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dw5kx42jhoqtq" path="res://Dev/AJ/Old/particle_basic_old.gd" id="1_oa75m"]
 [ext_resource type="Texture2D" uid="uid://c6h1kx3h23svd" path="res://Graphics/Particles/test_particle_2.png" id="2_x2b6q"]
-[ext_resource type="Material" uid="uid://bv1d1nr23royi" path="res://Graphics/Particles/particle_material.tres" id="3_nvydl"]
+[ext_resource type="Material" uid="uid://bv1d1nr23royi" path="res://Graphics/Particles/plasma_cell_color.tres" id="3_nvydl"]
 [ext_resource type="Script" uid="uid://bkjv58jlkqbid" path="res://Graphics/Particles/random_particle_color.gd" id="4_x3dfp"]
 [ext_resource type="Script" uid="uid://xu2eppsdmccc" path="res://Audio/Particles/audio_stream_offset.gd" id="5_ap0xc"]
 [ext_resource type="Script" uid="uid://cii4204pvu8qw" path="res://Audio/Particles/stream_descriptor.gd" id="6_huhlt"]

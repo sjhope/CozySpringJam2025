@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckpkaskr2aqer"]
+[gd_scene load_steps=7 format=3 uid="uid://ckpkaskr2aqer"]
 
 [ext_resource type="Script" uid="uid://cbqtuj5ygjhc2" path="res://Gameplay/Particles/scripts/particle_producer.gd" id="1_eleha"]
 [ext_resource type="Texture2D" uid="uid://codvwwll6ogvs" path="res://Graphics/Particles/test_particle.png" id="2_kx377"]
+[ext_resource type="Material" uid="uid://bn3lj64ukaij3" path="res://Graphics/Particles/plasma_cell_gray.tres" id="3_25ryl"]
+[ext_resource type="Script" uid="uid://bkjv58jlkqbid" path="res://Graphics/Particles/random_particle_color.gd" id="4_3cdlh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mnrq8"]
-radius = 6.0
+radius = 28.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_3cdlh"]
+size = Vector2(200, 200)
+subdivide_width = 2
+subdivide_depth = 2
 
 [node name="Particle Producer" type="RigidBody2D"]
 collision_layer = 2
@@ -26,3 +33,9 @@ collision_mask = 0
 shape = SubResource("CircleShape2D_mnrq8")
 debug_color = Color(0.65427, 0.517664, 3.85046e-07, 0.42)
 metadata/_edit_lock_ = true
+
+[node name="ParticleMesh" type="MeshInstance2D" parent="."]
+z_index = 100
+material = ExtResource("3_25ryl")
+mesh = SubResource("QuadMesh_3cdlh")
+script = ExtResource("4_3cdlh")

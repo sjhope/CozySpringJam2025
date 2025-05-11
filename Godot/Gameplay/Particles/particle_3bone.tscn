@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbhecs0m0ij0n"]
+
+[ext_resource type="PackedScene" uid="uid://qagm3vaopivx" path="res://Gameplay/Particles/particle_long.tscn" id="1_vgoap"]
+
+[node name="ParticleBoneTest" type="Node2D"]
+
+[node name="Particle Long A" parent="." instance=ExtResource("1_vgoap")]
+position = Vector2(0, 50)
+
+[node name="Particle Long B" parent="." instance=ExtResource("1_vgoap")]
+
+[node name="Particle Long C" parent="." instance=ExtResource("1_vgoap")]
+position = Vector2(0, -50)
+
+[node name="PinJoint2D A" type="PinJoint2D" parent="."]
+node_a = NodePath("../Particle Long A")
+node_b = NodePath("../Particle Long B")
+
+[node name="PinJoint2D B" type="PinJoint2D" parent="."]
+node_a = NodePath("../Particle Long B")
+node_b = NodePath("../Particle Long C")

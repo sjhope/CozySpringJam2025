@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnb5m24c3tset"]
+[gd_scene load_steps=7 format=3 uid="uid://dnb5m24c3tset"]
 
 [ext_resource type="Script" uid="uid://icr6vl86xfn0" path="res://Gameplay/Particles/scripts/particle_consumer.gd" id="1_dqcxf"]
 [ext_resource type="Texture2D" uid="uid://codvwwll6ogvs" path="res://Graphics/Particles/test_particle.png" id="2_cev4p"]
+[ext_resource type="Material" uid="uid://wbb27rmk3q0c" path="res://Graphics/Particles/plasma_cell_color2.tres" id="3_6tt7g"]
+[ext_resource type="Script" uid="uid://bkjv58jlkqbid" path="res://Graphics/Particles/random_particle_color.gd" id="4_vjt8a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mnrq8"]
-radius = 6.0
+radius = 56.446
+
+[sub_resource type="QuadMesh" id="QuadMesh_vjt8a"]
+size = Vector2(200, 200)
+subdivide_width = 2
+subdivide_depth = 2
 
 [node name="Particle Consumer" type="RigidBody2D"]
 collision_layer = 2
@@ -15,6 +22,7 @@ angular_damp = 0.5
 script = ExtResource("1_dqcxf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(1, 0.235294, 1, 1)
 texture = ExtResource("2_cev4p")
 metadata/_edit_lock_ = true
@@ -27,3 +35,10 @@ collision_mask = 0
 shape = SubResource("CircleShape2D_mnrq8")
 debug_color = Color(0.935097, 1.9156e-05, 0.637821, 0.42)
 metadata/_edit_lock_ = true
+
+[node name="ParticleMesh" type="MeshInstance2D" parent="."]
+z_index = -50
+material = ExtResource("3_6tt7g")
+scale = Vector2(2, 2)
+mesh = SubResource("QuadMesh_vjt8a")
+script = ExtResource("4_vjt8a")

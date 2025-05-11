@@ -1,12 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://btw2crosmbyhc"]
+[gd_scene load_steps=10 format=3 uid="uid://btw2crosmbyhc"]
 
 [ext_resource type="Script" uid="uid://ba1mv6gq41xf0" path="res://Gameplay/Player/player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://dvp81hk4i8nww" path="res://Graphics/Player/test_slime.png" id="2_i3pqv"]
+[ext_resource type="Shader" uid="uid://bi0u7jwq0oysd" path="res://Graphics/World/pp_background.gdshader" id="3_0t57j"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hkase"]
+frequency = 0.0104
+fractal_type = 3
+fractal_octaves = 6
+fractal_lacunarity = 0.61
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hkase"]
+width = 2048
+height = 2048
+generate_mipmaps = false
+seamless = true
+noise = SubResource("FastNoiseLite_hkase")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p1coc"]
+shader = ExtResource("3_0t57j")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_hkase")
+
+[sub_resource type="QuadMesh" id="QuadMesh_vmb5c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xm2m"]
+radius = 25.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t4lfm"]
-radius = 16.1245
+radius = 18.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 0
@@ -14,12 +35,28 @@ collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_onrkg")
 
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Canvas" type="MeshInstance2D" parent="Background"]
+z_index = -4096
+material = SubResource("ShaderMaterial_p1coc")
+scale = Vector2(10000, 10000)
+mesh = SubResource("QuadMesh_vmb5c")
+
+[node name="Splotches" type="MeshInstance2D" parent="Background"]
+visible = false
+z_index = -4096
+material = SubResource("ShaderMaterial_p1coc")
+scale = Vector2(1e+08, 1e+08)
+mesh = SubResource("QuadMesh_vmb5c")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0xm2m")
 debug_color = Color(0.890546, 0.226492, 0.588801, 0.42)
 metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 150
 texture = ExtResource("2_i3pqv")
 metadata/_edit_lock_ = true
 
@@ -33,3 +70,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Grabber"]
 shape = SubResource("CircleShape2D_t4lfm")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true

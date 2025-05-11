@@ -4,8 +4,12 @@ shader_type canvas_item;
 #include "res://Graphics/shader_lib.gdshaderinc"
 
 uniform float ext_time;
+uniform bool color = true;
+uniform bool seed = true;
+uniform bool tendrils = true;
 
 uniform sampler2D noise_tex;
+uniform sampler2D tendrils_tex;
 // const vec2 gradient_multiplier = vec2(1.0, 1.0);
 // const float gradient_exponent = 1.0;
 // const float wiggle_frequency = 6.0;
@@ -96,8 +100,43 @@ void fragment() {
 	vec3 colorful_version = clamp(color_gradient, 0.0, 1.0); // mix(color_gradient, color_gradient * 0.5, min(world_noise_med, radial)); // mix(vec3(0.0), color, exp(gradient_c * 2.0) * 0.5 - 0.5);
 	COLOR.a = clamp(exp(gradient_c) * 0.5 - 0.5, -0.2, 1.3); // clamp((exp(gradient_c * 2.0) * 0.5 - 0.5) * radial, 0.0, 1.0); // * world_noise_large;
 	
-	vec3 gray_version = vec3(clamp(smoothstep(0.3, 0.4, abs(gradient_alpha)), 0.0, 1.0)); // smoothstep(0.1, 0.4, gradient_alpha)
-	COLOR.rgb = screen(colorful_version, 1.0 - gray_version, 1.0);
+	if (color) {
+		vec3 gray_version = vec3(clamp(smoothstep(0.3, 0.4, abs(gradient_alpha)), 0.0, 1.0)); // smoothstep(0.1, 0.4, gradient_alpha)
+		COLOR.rgb = screen(colorful_version, 1.0 - gray_version, 1.0);
+	} else {
+		float gray_version = smoothstep(0.45, 0.55, abs(gradient_alpha)); // smoothstep(0.1, 0.4, gradient_alpha)
+		COLOR.rgb = vec3(gray_version);
+	}
+	
+	float id_time_sin = sin(TIME + fract(id * 0.0015) * 79.34) * 0.5 + 0.5;
+	float id_time_cos = cos(TIME + fract(id * 0.0015) * 79.34) * 0.5 + 0.5;
+	
+	if (seed) {
+		float r = (TIME);
+		float scale = mix(0.1, 0.25, id_time_sin);
+		float ring_pos = 0.7;
+		float ring_thick = 0.01;
+		float offset1 = sin(TIME);
+		float right = smoothstep(0.0, ring_thick, abs(length(mesh_ndc + rotate_uv(vec2(scale, scale), r, 0.0)) - ring_pos));
+		float left = smoothstep(0.0, ring_thick, abs(length(mesh_ndc + rotate_uv(vec2(-scale, -scale), r, 0.0)) - ring_pos));
+		float top = smoothstep(0.0, ring_thick, abs(length(mesh_ndc + rotate_uv(vec2(-scale, scale), r, 0.0)) - ring_pos));
+		float bottom = smoothstep(0.0, ring_thick, abs(length(mesh_ndc + rotate_uv(vec2(scale, -scale), r, 0.0)) - ring_pos));
+		// float right = smoothstep(0.0, ring_thick, abs(length(rotate_uv(mesh_ndc + vec2(scale, 0.0), r, 0.0)) - ring_pos));
+		// float left = smoothstep(0.0, ring_thick, abs(length(rotate_uv(mesh_ndc + vec2(-scale, 0.0), r, 0.0)) - ring_pos));
+		// float top = smoothstep(0.0, ring_thick, abs(length(rotate_uv(mesh_ndc + vec2(0.0, scale), r, 0.0)) - ring_pos));
+		// float bottom = smoothstep(0.0, ring_thick, abs(length(rotate_uv(mesh_ndc + vec2(0.0, -scale), r, 0.0)) - ring_pos));
+		float lines = min(min(right, left), min(top, bottom));
+		COLOR.rgb = soft_light(COLOR.rgb, vec3(lines), 1.0); // mix(vec3(0.0), COLOR.rgb, lines);
+	}
+	
+	if (tendrils) {
+		vec2 tendril_uvs = mesh_ndc * 0.5 + 0.5;
+		tendril_uvs += vec2(id_time_sin * tendril_uvs.y, id_time_cos * tendril_uvs.x + id_time_sin * tendril_uvs.x) * 0.05;
+		float mask = texture(tendrils_tex, tendril_uvs).r;
+		// COLOR.rgb = mix(COLOR.rgb, vec3(1.0), smoothstep(0.5, mix(0.75, 0.9, id_time_sin), mask - 0.1)); // mix(COLOR.rgb, vec3(1.0), mask);
+		COLOR.rgb = soft_light(COLOR.rgb, vec3(smoothstep(0.5, mix(0.75, 0.9, id_time_sin), mask - 0.1)), 0.2);
+		// COLOR.a = 1.0;
+	}
 	
 	// COLOR.rgb = vec3(sin(ext_time)) * 0.5;
 	

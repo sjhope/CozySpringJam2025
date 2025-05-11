@@ -1,14 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://hkori57otmb8"]
+[gd_scene load_steps=13 format=3 uid="uid://hkori57otmb8"]
 
 [ext_resource type="Script" uid="uid://0jjtqaonytpa" path="res://Dev/AJ/Old/player_old.gd" id="1_u3kkn"]
 [ext_resource type="Shader" uid="uid://bi0u7jwq0oysd" path="res://Graphics/World/pp_background.gdshader" id="2_muujw"]
-[ext_resource type="Texture2D" uid="uid://ca5lox4prhw74" path="res://Dev/AJ/Old/canvas_texture2.png" id="3_kwmyw"]
 [ext_resource type="Texture2D" uid="uid://dvp81hk4i8nww" path="res://Graphics/Player/test_slime.png" id="4_lw8pj"]
 [ext_resource type="Shader" uid="uid://c7yft108pbj5k" path="res://Graphics/Player/w_player.gdshader" id="5_0o20f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bpqns"]
 shader = ExtResource("2_muujw")
-shader_parameter/canvas_tex = ExtResource("3_kwmyw")
 
 [sub_resource type="QuadMesh" id="QuadMesh_7jsif"]
 

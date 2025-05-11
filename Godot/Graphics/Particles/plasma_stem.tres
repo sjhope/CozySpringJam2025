@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://b3bp8kbhgy4ch"]
+
+[ext_resource type="Shader" uid="uid://d2orjhupc3wbe" path="res://Graphics/Particles/w_plasma_stem.gdshader" id="1_34lo3"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_34lo3"]
+fractal_lacunarity = 1.435
+fractal_gain = 1.35
+fractal_weighted_strength = 0.55
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_31win"]
+seamless = true
+noise = SubResource("FastNoiseLite_34lo3")
+
+[resource]
+shader = ExtResource("1_34lo3")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_31win")
